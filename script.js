@@ -1,21 +1,22 @@
 const myLibrary = [];
 
-function Book(title, author, pages, readStatus){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.readStatus = readStatus;
-}
 
-function addBookToLibrary(newBook){
+class Book {
 
-    newBook.uniqueID = crypto.randomUUID();
-    myLibrary.push(newBook);
+    constructor(title, author, pages, readStatus){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.readStatus = readStatus;
+    }
 
-}
+    static addBookToLibrary(newBook){
+        newBook.uniqueID = crypto.randomUUID();
+        myLibrary.push(newBook);
+    }
 
-function displayBooks(arrayAccess){
-    const existingBooks = document.querySelectorAll(".book");
+    static displayBooks(arrayAccess){
+        const existingBooks = document.querySelectorAll(".book");
     existingBooks.forEach(book => book.remove());
 
     arrayAccess.forEach(function (book){
@@ -39,7 +40,7 @@ function displayBooks(arrayAccess){
         bookInfo.appendChild(bookRead);
 
         document.body.appendChild(bookInfo);
-    })
+    })}
 }
 
 const newBookButton = document.createElement("button")
@@ -117,10 +118,10 @@ newBookButton.onclick = function(){
         const pages1 = parseInt(document.getElementById("pageNumber").value);
         const readStatus1 = document.getElementById("readSelect").value === "true";
     
-        const newBook1 = new Book(title1, author1, pages1, readStatus1);
-        addBookToLibrary(newBook1);
-    
-        displayBooks(myLibrary);
+        let newBook1 = new Book(title1, author1, pages1, readStatus1);
+        Book.addBookToLibrary(newBook1);
+        Book.displayBooks(myLibrary);
+
         form.reset();
     })
 
